@@ -1,28 +1,66 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
-    <style>
-      #content {
-        display:flex;
-        flex-flow: column;
-      }
-      #content div {
-        padding: 5px;
-      }
-      #apiKey {
-        width: 230px;
-      }
-    </style>
   </head>
   <body>
-    <div id="content">
-      <div>
-        <label for="apiKey">Amazing Marvin API Key:</label>
-        <input id="apiKey" type="text" spellcheck="false">
+    <div class="container-options">
+      <h1>Save to Marvin options</h1>
+      <div class="api-settings">
+        <div>
+          <label for="apiKey">Amazing Marvin API Key:</label>
+          <input id="apiKey" type="text" spellcheck="false">
+          <a class="tooltip" href="#" title='Use the "apiToken" value found in the "Credentials" section of the "API (beta)" strategy.'>&#63;</a>
+        </div>
       </div>
-      <div>
-        <p>Use the "apiToken" value found in the "Credentials" section of the "API (beta)" strategy.</p>
+      <div class="option">
+        <span class="option-name">Show schedule buttons</span>
+        <p class="option-desc">Have buttons for scheduling tasks for today or tomorrow. By default, tasks will be unscheduled.</p>
+        <label class="option-switch">
+          <input type="checkbox" id="scheduleButtons" checked>
+          <div class="slider round"></div>
+        </label>
+      </div>
+      <div class="option">
+        <span class="option-name">Show planning buttons</span>
+        <p class="option-desc">Have buttons for planning tasks for this week, next week, this month, and next month. 
+          Requires <a class="strategy-link" href="https://help.amazingmarvin.com/en/articles/1950218-planning-ahead">Planning Ahead</a> strategy to be turned on.
+        </p>
+        <label class="option-switch">
+          <input type="checkbox" id="planningButtons" checked>
+          <div class="slider round"></div>
+        </label>
+      </div>
+      <div class="option">
+        <span class="option-name">Show time estimate buttons</span>
+        <p class="option-desc">Have buttons for adding a time estimate to tasks.
+          Requires <a class="strategy-link" href="https://help.amazingmarvin.com/en/articles/1950205-duration-estimates">Duration Estimates</a> strategy to be turned on.
+        </p>
+        <label class="option-switch">
+          <input type="checkbox" id="timeEstimateButtons" checked>
+          <div class="slider round"></div>
+        </label>
+      </div>
+      <div class="option">
+        <span class="option-name">Show priority buttons</span>
+        <p class="option-desc">Have buttons for adding a priority start to tasks.
+          Requires <a class="strategy-link" href="https://help.amazingmarvin.com/en/articles/1950152-priority-stars">Priority Stars</a> strategy to be turned on.
+        </p>
+        <label class="option-switch">
+          <input type="checkbox" id="priorityButtons" checked>
+          <div class="slider round"></div>
+        </label>
+      </div>
+      <div class="option">
+        <span class="option-name">Show reward points buttons</span>
+        <p class="option-desc">Have buttons for adding reward points to tasks.
+          Requires <a class="strategy-link" href="https://help.amazingmarvin.com/en/articles/4377071-reward-points">Reward Points</a> strategy to be turned on.
+        </p>
+        <label class="option-switch">
+          <input type="checkbox" id="rewardPointsButtons" checked>
+          <div class="slider round"></div>
+        </label>
       </div>
       <div>
         <button id="submitButton" class="button">Save</button>

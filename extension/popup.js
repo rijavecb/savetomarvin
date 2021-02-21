@@ -1,5 +1,8 @@
 let pageTitle = '';
 let pageUrl = '';
+let titleAddons = '';
+let rewardPoints = 0;
+
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
   pageTitle = tabs[0].title;
   pageUrl = tabs[0].url;
@@ -9,9 +12,29 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
   titleField.select();
 });
 
-let storedApiToken = '';
+var storedApiToken = '';
 chrome.storage.sync.get('apiKey', function(data) {
   storedApiToken = data.apiKey;
+});
+
+chrome.storage.sync.get('scheduleButtons', function(data) {
+  if (!data.scheduleButtons) document.getElementById('scheduleButtons').classList.add('hidden');
+});
+
+chrome.storage.sync.get('planningButtons', function(data) {
+  if (!data.planningButtons) document.getElementById('planningButtons').classList.add('hidden');
+});
+
+chrome.storage.sync.get('timeEstimateButtons', function(data) {
+  if (!data.timeEstimateButtons) document.getElementById('timeEstimateButtons').classList.add('hidden');
+});
+
+chrome.storage.sync.get('priorityButtons', function(data) {
+  if (!data.priorityButtons) document.getElementById('priorityButtons').classList.add('hidden');
+});
+
+chrome.storage.sync.get('rewardPointsButtons', function(data) {
+  if (!data.rewardPointsButtons) document.getElementById('rewardPointsButtons').classList.add('hidden');
 });
 
 const dimmer = document.getElementById('dimmer');
@@ -37,9 +60,41 @@ function endLoad() {
 
 function newTaskSucceeded(title, dateString) {
   const successTextPara = document.getElementById('successText');
-  const successTextHTML = 'New task <b>' + title + '</b> added on <b>' + dateString + '</b>.';
+  let successTextHTML = ''
+  if (dateString !== 'unassigned') {
+    successTextHTML = 'New task <b>' + title + '</b> added on <b>' + dateString + '</b>.';
+  } else {
+    successTextHTML = 'New task <b>' + title + '</b> added as <b>unscheduled</b>.'; 
+  }
   successTextPara.innerHTML = successTextHTML;
   confirmation.style.display = 'block';
+}
+
+let uncheckSiblings = function (element) {
+  let descendants = element.parentNode.children;
+  for (descendant of descendants) {
+    if (descendant !== element) {
+      descendant.classList.remove("checked");
+    }
+ }
+}
+
+document.addEventListener('click', function (event) {
+	if (event.target.matches('.button')) {
+    uncheckSiblings(event.target);
+    event.target.classList.toggle("checked");
+	}
+});
+
+let appendToTitle = function(checkedButtons) {
+  for (checkedButton of checkedButtons) {
+    buttonContents = String(checkedButton.innerHTML);
+    buttonContents.match(/\$/) ? setRewardPoints(checkedButton.value) : titleAddons += ` ${checkedButton.value}`;
+ }
+}
+
+let setRewardPoints = function(elementValue) {
+  rewardPoints = parseFloat(elementValue);
 }
 
 function addTask(title, pageUrl) {
@@ -47,10 +102,14 @@ function addTask(title, pageUrl) {
   date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
   const dateString = date.toISOString().slice(0,10);
 
+  let checkedButtons = document.getElementsByClassName("checked");
+  appendToTitle(checkedButtons);
+  
   let data = {};
-  data.title = title;
+  data.title = title + titleAddons;
   data.note = pageUrl;
-  data.day = dateString;
+  data.rewardPoints = rewardPoints;
+  console.log(JSON.stringify(data))
 
   fetch('https://serv.amazingmarvin.com/api/addTask', {
     method: 'POST',

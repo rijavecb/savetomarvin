@@ -87,10 +87,58 @@
         display: flex;
         flex-flow: column;
         justify-content: center;
-        align-items: 
-center;
+        align-items: center;
         height: 100%;
         padding: 10px;
+      }
+
+      /* BUTTONS */
+
+      .grid-container-schedule {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 0px 5px;
+        grid-template-areas:
+          ". .";
+      }
+
+      .grid-container-plan {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 5px 5px;
+        grid-template-areas:
+          ". ."
+          ". .";
+      }
+
+      .grid-container-priority {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 0px 5px;
+        grid-template-areas:
+          ". . .";
+      }
+
+      .grid-container-estimate {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 5px 5px;
+        grid-template-areas:
+          ". . . ."
+          ". . . .";
+      }
+
+      .grid-container-reward-points {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1f 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 0px 5px;
+        grid-template-areas:
+          ". . . . .";
       }
 
       /* Adapted from loading.io */
@@ -139,7 +187,54 @@ center;
     <div id="content">
       <div>
         <label for="title">Task Title:</label>
-        <textarea id="title" cols=40 rows=3"></textarea>
+        <textarea id="title" cols=40 rows=3></textarea>
+      </div>
+      <div id="scheduleButtons">
+        <label for="scheduled">Schedule a task for:</label>
+        <div class="grid-container-schedule">
+          <button id="today" class="button" value="+today">Today</button>
+          <button id="tomorrow" class="button" value="+tomorrow">Tomorrow</button>          
+        </div>
+      </div>
+      <div id="planningButtons">
+        <label for="planned">Plan:</label>
+        <div class="grid-container-plan">
+          <button id="p3" class="button" value="&thisWeek">This Week</button>
+          <button id="p2" class="button" value="&nextWeek">Next Week</button>
+          <button id="p1" class="button" value="&thisMonth">This Month</button>
+          <button id="p1" class="button" value="&nextMonth">Next Month</button>             
+        </div>
+      </div>
+      <div id="timeEstimateButtons">
+        <label for="time-estimate">Set time estimate:</label>
+        <div class="grid-container-estimate">
+          <button id="5m" class="button" value="~5m">5m</button>
+          <button id="10m" class="button" value="~10m">10m</button>
+          <button id="15m" class="button" value="~15m">15m</button>
+          <button id="30m" class="button" value="~30m">30m</button>
+          <button id="45m" class="button" value="~45m">45m</button>
+          <button id="1h" class="button" value="~1h">1h</button>
+          <button id="1h30m" class="button" value="~90m">1h30m</button>
+          <button id="2h" class="button" value="~120m">2h</button>         
+        </div>
+      </div>
+      <div id="priorityButtons">
+        <label for="title">Set priority:</label>
+        <div class="grid-container-priority">
+          <button id="p3" class="button" value="*p3">&#11088;</button>
+          <button id="p2" class="button" value="*p2">&#11088;&#11088;</button>
+          <button id="p1" class="button" value="*p1">&#11088;&#11088;&#11088;</button>          
+        </div>
+      </div>
+      <div id="rewardPointsButtons">
+        <label for="reward-points">Set reward points:</label>
+        <div class="grid-container-reward-points">
+          <button id="rp1" class="button" value=1.0>&#36;1</button>
+          <button id="rp2" class="button" value=2>&#36;2</button>
+          <button id="rp3" class="button" value=3>&#36;3</button>          
+          <button id="rp4" class="button" value=4>&#36;4</button> 
+          <button id="rp5" class="button" value=5>&#36;5</button> 
+        </div>
       </div>
       <div>
         <button id="submitButton" class="button">Create Item</button>

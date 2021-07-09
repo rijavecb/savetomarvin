@@ -21,6 +21,14 @@
         padding: 5px;
       }
 
+      #content-bottom {
+        display: grid;
+        grid-template-columns: 50% min-content;
+        grid-template-rows: 1fr;
+        align-items: center;
+        justify-content: space-between;
+      }
+
       #title {
         border-radius: var(--input-radius);
         padding-left: var(--input-radius);
@@ -236,8 +244,9 @@
           <button id="rp5" class="button" value=5>&#36;5</button> 
         </div>
       </div>
-      <div>
+      <div id="content-bottom">
         <button id="submitButton" class="button">Create Item</button>
+        <button id="go-to-options" class="button btn-options">Options</button>
       </div>
     </div>
     <div id="dimmer">
